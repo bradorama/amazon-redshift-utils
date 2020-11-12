@@ -89,7 +89,7 @@ def print_statements(statements):
 
 
 def get_pg_conn(db_host, db, db_user, db_pwd, schema_name, db_port=5439, query_group=None, query_slot_count=1,
-                ssl=True, **kwargs):
+                ssl=False, **kwargs):
     conn = None
 
     if debug:
@@ -97,7 +97,7 @@ def get_pg_conn(db_host, db, db_user, db_pwd, schema_name, db_port=5439, query_g
 
     try:
         conn = pg8000.connect(user=db_user, host=db_host, port=int(db_port), database=db, password=db_pwd,
-                              ssl=ssl, timeout=None)
+                               timeout=None)
         conn._usock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         conn.autocommit = True
     except Exception as e:
